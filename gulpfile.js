@@ -4,8 +4,10 @@ const babelify = require('babelify');
 const browserify = require('browserify');
 const source = require('vinyl-source-stream')
 
-const project = 'GonzyPortfolio';
-const targetFile = 'app';
+const project = 'MaxiAdvanced';
+const targetFile = 'serverReact';
+
+//Use builder for front-end, and babler for back-end
 
 function browserifier () {
 
@@ -24,7 +26,6 @@ function babler() {
 		.pipe(babel({
 			presets: ['@babel/env']
 		}))
-		//.pipe(browserified)
 		.pipe(dest(`../${project}/`));
 
 }
