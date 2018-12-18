@@ -5,18 +5,19 @@ const browserify = require('browserify');
 const source = require('vinyl-source-stream')
 
 const project = 'GonzyPortfolio';
+const targetFile = 'app';
 
 function browserifier () {
 
-	return browserify(`../${project}/app.js`).bundle()
-			.pipe(source('app.js'))
+	return browserify(`../${project}/${targetFile}.js`).bundle()
+			.pipe(source(`${targetFile}.js`))
 			.pipe(dest(`../${project}/`));
 
 }
 
 function babler() {
 
-	return src(`../${project}/src/js/app.jsx`)
+	return src(`../${project}/src/js/${targetFile}.jsx`)
 		.pipe(babel({
 			presets: ['@babel/react']
 		}))
@@ -28,6 +29,7 @@ function babler() {
 
 }
 
-exports.default = task(babler);
+exports.babler = task(babler);
 exports.browserifier = task(browserifier);
+exports.builder = series(babler, browserifier);
 
